@@ -14,6 +14,8 @@ Then copy all.js from `$(stack --local-install-root)` to the above path.
 
 Finally start the backend:
 
-    cd serve && upload-backend
+    cd serve
+    mkdir log tmp upload
+    upload-backend
     
 and visit http://localhost:8000. Check for uploaded files in `serve/upload`.

@@ -25,7 +25,7 @@ main = mainWidget $ do
     text "Upload status: "
     dynText st
 
--- Currently `FD.FormData Nothing` causes an error in Firefox:
+-- Currently `FD.newFormData Nothing` causes an error in Firefox:
 -- uncaught exception in Haskell thread: TypeError: Argument 1 of FormData.constructor is not an object.
 -- I'm planning to submit a PR if i find the time.
 foreign import javascript unsafe "new window[\"FormData\"]()"

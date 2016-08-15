@@ -7,7 +7,6 @@ import           Data.Maybe (listToMaybe)
 import           Data.Text (Text)
 import           GHCJS.Types (JSString, JSVal)
 import qualified GHCJS.DOM.FormData as FD
-import           GHCJS.Marshal
 import           GHCJS.DOM.Types (File(..), toJSString)
 import           Reflex
 import           Reflex.Dom
@@ -25,7 +24,6 @@ main = mainWidget $ do
   el "p" $ do
     text "Upload status: "
     dynText st
-  return ()
 
 -- Currently `FD.FormData Nothing` causes an error in Firefox:
 -- uncaught exception in Haskell thread: TypeError: Argument 1 of FormData.constructor is not an object.
@@ -39,6 +37,6 @@ foreign import javascript unsafe "$1[\"append\"]($2, $3)"
 
 wrapFile :: (MonadIO m) => Text -> File -> m FD.FormData
 wrapFile fname f = do
-  fd <- liftIO $ js_newFormData0
+  fd <- liftIO js_newFormData0
   liftIO $ js_append fd (toJSString fname) (unFile f)
   return fd

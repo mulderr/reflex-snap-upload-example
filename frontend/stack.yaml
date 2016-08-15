@@ -1,0 +1,29 @@
+resolver: lts-5.12
+compiler: ghcjs-0.2.0.20160414_ghc-7.10.3
+compiler-check: match-exact
+setup-info:
+  ghcjs:
+    source:
+      ghcjs-0.2.0.20160414_ghc-7.10.3:
+        url: https://s3.amazonaws.com/ghcjs/ghcjs-0.2.0.20160414_ghc-7.10.3.tar.gz
+        sha1: 6d6f307503be9e94e0c96ef1308c7cf224d06be3
+
+packages:
+- '.'
+- location:
+    git: https://github.com/reflex-frp/reflex
+    commit: 1511d28b08159918137171b79d9f976d9dbe9c65
+  extra-dep: true
+- location:
+    git: https://github.com/reflex-frp/reflex-dom
+    commit: 2a2ac99cfc71dd304840cfb691b628b3d6e75a66
+  extra-dep: true
+
+extra-deps:
+- ghcjs-dom-0.2.4.0
+- ref-tf-0.4
+- haskell-src-exts-1.16.0.1
+- dependent-map-0.2.2.0
+- keycode-0.2
+- zenc-0.1.1
+

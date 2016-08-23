@@ -16,7 +16,7 @@ main :: IO ()
 main = mainWidget $ do
   fi <- fileInput def
   submitE <- button "Upload"
-  let ef = fmapMaybe id $ fmap listToMaybe $ tag (current $ value fi) submitE
+  let ef = fmapMaybe listToMaybe $ tag (current $ value fi) submitE
   efd <- performEvent $ fmap (wrapFile "file") ef
   r <- performRequestAsync $ ffor efd $ \fd ->
          xhrRequest "POST" "/upload" def { _xhrRequestConfig_sendData = fd }

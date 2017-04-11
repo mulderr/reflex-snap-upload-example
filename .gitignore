@@ -1,4 +1,6 @@
-.stack-work
+backend/dist
+frontend/dist
 serve/tmp
 serve/upload
 serve/log
+serve/static/js

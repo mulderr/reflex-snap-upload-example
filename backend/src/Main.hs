@@ -25,15 +25,15 @@ site = route [ ("upload", handleUpload)
 
 -- | Handles the upload form saving file to upload directory.
 handleUpload :: MonadSnap m => m ()
-handleUpload = void $ handleFileUploads "tmp" defaultUploadPolicy (const $ allowWithMaximumSize $ 10*miB) handler
+handleUpload = void $ handleFileUploads "tmp"
+                                        defaultUploadPolicy
+                                        (const $ allowWithMaximumSize $ 10*miB)
+                                        handler
   where
     miB = 2^(20 :: Int)
 
-    handler pinfo ef = do
-      case ef of
-        Left e -> putStrLn $ show e
-        Right fp -> do
-          case partFileName pinfo of
-            Nothing -> error "Missing filename"
-            Just fname -> do
-              renameFile fp $ "upload" </> T.unpack (T.decodeUtf8 fname)
+    handler pinfo = either (putStrLn . show) (saveFile pinfo)
+
+    saveFile pinfo fp = case partFileName pinfo of
+      Just fn -> renameFile fp $ "upload" </> T.unpack (T.decodeUtf8 fn)
+      Nothing -> error "Missing filename"
